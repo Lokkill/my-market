@@ -1,36 +1,31 @@
 package ru.geekbrains.mymarket.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.geekbrains.mymarket.model.Product;
 import ru.geekbrains.mymarket.service.ProductService;
 
 import java.util.List;
 
+@RestController
 @RequiredArgsConstructor
-@Controller
+@RequestMapping("/api/v1/list")
 public class MainController {
 
-    private ProductService productService;
+    private final ProductService productService;
 
-    @GetMapping("/list")
-    public String showAllProducts(Model model){
-        List<Product> products = productService.findAll();
-        model.addAttribute("products", products);
-        return "index";
+    @GetMapping
+    public List<Product> getAllProducts(){
+        return productService.findAll();
     }
 
     @DeleteMapping("/{id}")
-    public String deleteProduct(@PathVariable(name = "id") Long id){
+    public void deleteProduct(@PathVariable(name = "id") Long id) {
         productService.removeById(id);
-        return "redirect:/list";
     }
 
     @PutMapping("/{id}")
-    public String saveProduct(@RequestBody Product product){
+    public void saveProduct(@RequestBody Product product) {
         productService.saveOrUpdate(product);
-        return "redirect:/list";
     }
 }
