@@ -6,6 +6,20 @@ insert into products (title, price) values
 ('Egg', 80),
 ('Bread', 40),
 ('Ice cream', 120),
+('Cola', 60),
+('Cola', 60),
+('Cola', 60),
+('Cola', 60),
+('Cola', 60),
+('Cola', 60),
+('Cola', 60),
+('Cola', 60),
+('Cola', 60),
+('Cola', 60),
+('Cola', 60),
+('Cola', 60),
+('Cola', 60),
+('Cola', 60),
 ('Cola', 60);
 
 COMMIT;

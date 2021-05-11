@@ -1,6 +1,10 @@
 package ru.geekbrains.mymarket.controller;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import ru.geekbrains.mymarket.dto.CartDto;
+import ru.geekbrains.mymarket.dto.ProductDto;
+import ru.geekbrains.mymarket.error_handling.ResourceNotFoundException;
 import ru.geekbrains.mymarket.model.Cart;
 import ru.geekbrains.mymarket.model.Product;
 import ru.geekbrains.mymarket.service.ProductService;
@@ -8,28 +12,25 @@ import ru.geekbrains.mymarket.service.ProductService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/cart")
+@RequiredArgsConstructor
+@RequestMapping("/api/v1")
 public class CartController {
     private final Cart cart;
     private final ProductService productService;
 
-    public CartController(Cart cart, ProductService productService) {
-        this.cart = cart;
-        this.productService = productService;
+    @GetMapping("/cart")
+    public CartDto getAllProductFromCart(){
+        CartDto cartDto = new CartDto(cart);
+        return cartDto;
     }
 
-
-    @GetMapping
-    public List<Product> getAllProductFromCart(){
-        return cart.getAllProductFromCart();
-    }
-
-    @GetMapping("/add/{id}")
+    @GetMapping("/cart/add/{id}")
     public void addProductToCart(@PathVariable Long id){
-        cart.addToCart(productService.findById(id).get());
+        Product product = productService.findById(id).orElseThrow(() -> new ResourceNotFoundException("Product not found, id" + id));
+        cart.addToCart(product);
     }
 
-    @GetMapping("/clear")
+    @GetMapping("/cart/clear")
     public void clearCart(){
         cart.clearCart();
     }
