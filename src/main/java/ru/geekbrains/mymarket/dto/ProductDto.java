@@ -6,6 +6,7 @@ import ru.geekbrains.mymarket.model.Product;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;
+import java.math.BigDecimal;
 
 @Data
 @NoArgsConstructor
@@ -14,7 +15,7 @@ public class ProductDto {
     @Size(min = 4, max = 255, message = "Title size 4-255")
     private String title;
     @Min(value = 1, message = "Price minimum 1")
-    private int price;
+    private BigDecimal price;
 
     public ProductDto(Product product){
         this.id = product.getId();
