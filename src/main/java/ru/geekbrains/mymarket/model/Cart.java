@@ -61,9 +61,7 @@ public class Cart {
 
     public void checkout(UserOrderDto userOrder) {
         User user = userRepository.findByUsername(userOrder.getUsername()).orElseThrow(() -> new UsernameNotFoundException("User not found"));
-        for (OrderItemDto oid : userOrder.getOrder().getCart()){
 
-        }
 //        userOrder.getOrder().getCart().forEach(orderItemDto -> cartRepository.save());
     }
 }
